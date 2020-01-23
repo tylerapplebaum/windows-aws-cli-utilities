@@ -1,7 +1,7 @@
 # windows-aws-cli-utilities
 
 ### Update-AWSCLI.ps1
-Compares currently installed version to latest version and downloads and installs latest version if an outdated version is detected.
+Compares the currently installed version to the latest version. Downloads and installs the latest version if an outdated version is detected.
 
 Typical output
 ```

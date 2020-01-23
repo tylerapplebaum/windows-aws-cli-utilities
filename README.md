@@ -4,7 +4,7 @@
 Compares the currently installed version to the latest version. Downloads and installs the latest version if an outdated version is detected.
 
 Typical output
-```
+```powershell
 PS C:\> .\Update-AWSCLI.ps1
 VERBOSE: GET https://github.com/aws/aws-cli/releases with 0-byte payload
 VERBOSE: received -1-byte response of content type text/html; charset=utf-8

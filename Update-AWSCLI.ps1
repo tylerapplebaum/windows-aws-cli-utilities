@@ -47,7 +47,7 @@ Write-Verbose "Current version $CurrentVersion"
 
     Else {
         Write-Verbose "Could not detect difference in versions; no action"
-        [Environment]::Exit(1)
+        Break
     }
 } #End Compare-AWSCLIVersions
 

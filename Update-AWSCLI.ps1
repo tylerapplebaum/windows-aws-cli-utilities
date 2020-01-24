@@ -10,7 +10,7 @@ $AdminStatus = ([Security.Principal.WindowsPrincipal][Security.Principal.Windows
     Else {
     
     }
-}
+} #End Get-RunAsAdminStatus
 
 Function Get-LatestAWSCLIVersion {
 [CmdletBinding()]
@@ -57,7 +57,7 @@ Function Install-LatestAWSCLI {
     Else {
         Write-Error "$DownloadLocation\AWSCLI64PY3.msi not found"
     }
-}
+} #End Install-LatestAWSCLI
 
 Get-RunAsAdminStatus
 Get-LatestAWSCLIVersion -Verbose

@@ -35,12 +35,12 @@ param(
 )
 $CurrentVersion = $(aws --version).Split(' ')[0].Split('/')[1]
 Write-Verbose "Current version $CurrentVersion"
-    If ($LatestVersion.split('.')[1] -gt $CurrentVersion.split('.')[1]) { # Case where Minor version is higher
+    If ([int]$LatestVersion.split('.')[1] -gt [int]$CurrentVersion.split('.')[1]) { # Case where Minor version is higher
         Write-Verbose "Outdated version detected - currently $CurrentVersion; downloading $LatestVersion"
         Invoke-WebRequest $AWSCLI64bitDownload -OutFile $DownloadLocation\AWSCLI64PY3.msi
     }
 
-    ElseIf ($LatestVersion.split('.')[2] -gt $CurrentVersion.split('.')[2]) { # Case where Minor version isn't higher; check Patch/Upgrade fields
+    ElseIf ([int]$LatestVersion.split('.')[2] -gt [int]$CurrentVersion.split('.')[2]) { # Case where Minor version isn't higher; check Patch/Upgrade fields
         Write-Verbose "Outdated version detected - currently $CurrentVersion; downloading $LatestVersion"
         Invoke-WebRequest $AWSCLI64bitDownload -OutFile $DownloadLocation\AWSCLI64PY3.msi
     }

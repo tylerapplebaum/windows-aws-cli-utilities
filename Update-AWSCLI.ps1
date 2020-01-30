@@ -5,7 +5,7 @@
 [CmdletBinding()]
 Param(
     [Parameter(HelpMessage="Force download and install even if AWS CLI not installed")]
-    $NewInstallErrorAction = "Continue"
+    [ValidateSet('Continue','Ignore','Inquire','SilentlyContinue','Stop','Suspend')]$NewInstallErrorAction = "Continue"
 )
 
 Function Get-RunAsAdminStatus {
@@ -56,6 +56,12 @@ Param(
     Catch [System.Management.Automation.CommandNotFoundException]
     {
         Write-Error "AWS CLI not found"
+        If ($NewInstallErrorAction = "Continue") {
+            $CurrentVersion = "0.0.0"
+        }
+        Else {
+            Break
+        }
     }
 
     If ([int]$LatestVersion.split('.')[1] -gt [int]$CurrentVersion.split('.')[1]) { # Case where Minor version is higher

@@ -44,3 +44,6 @@ Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
 
 PS C:\>     
 ```
+#### Q & A
+- Q: Why not just use pip or chocolatey?
+- A: Those are both great package managers. I was looking for something lightweight, with no additional dependencies.

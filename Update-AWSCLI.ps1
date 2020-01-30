@@ -88,7 +88,7 @@ Param(
 } #End Compare-AWSCLIVersions
 
 Function Install-LatestAWSCLI {
-    If ((Test-Path $DownloadLocation\AWSCLI64PY3.msi) -AND ($LastExitCode -eq 0)) {
+    If (Test-Path $DownloadLocation\AWSCLI64PY3.msi) {
         Start-Process -FilePath "msiexec.exe" -ArgumentList "/qn /i $DownloadLocation\AWSCLI64PY3.msi /L*V $DownloadLocation\AWSCLI64PY3_$LatestVersion.log" -Wait -Passthru 
     }
     Else {

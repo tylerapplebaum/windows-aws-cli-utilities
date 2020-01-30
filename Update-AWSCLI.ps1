@@ -43,10 +43,7 @@ Param(
     [ValidateNotNullOrEmpty()]$AWSCLI64bitDownload = "https://s3.amazonaws.com/aws-cli/AWSCLI64PY3.msi",
 
     [Parameter(HelpMessage="Specify the local path to save the AWS CLI download")]
-    [ValidateScript({Test-Path $_ -PathType Container})]$script:DownloadLocation = [Environment]::GetFolderPath("UserProfile") + "\Downloads",
-    
-    [Parameter(HelpMessage="Check whether or not the version string received from Get-LatestAWSCLIVersion is null")]
-    [ValidateNotNullOrEmpty()]$LatestVersion
+    [ValidateScript({Test-Path $_ -PathType Container})]$script:DownloadLocation = [Environment]::GetFolderPath("UserProfile") + "\Downloads"
 )
     Try {
         $CurrentVersion = $(aws --version).Split(' ')[0].Split('/')[1]
@@ -64,7 +61,7 @@ Param(
         }
     }
 
-    If ([int]$LatestVersion.split('.')[1] -gt [int]$CurrentVersion.split('.')[1]) { # Case where Minor version is higher
+    If (($LatestVersion -ne $null) -AND ([int]$LatestVersion.split('.')[1] -gt [int]$CurrentVersion.split('.')[1])) { # Case where Minor version is higher
         Write-Verbose "Outdated version detected - currently $CurrentVersion; downloading $LatestVersion"
         Try {
             Invoke-WebRequest $AWSCLI64bitDownload -OutFile $DownloadLocation\AWSCLI64PY3.msi
@@ -74,7 +71,7 @@ Param(
         }
     }
 
-    ElseIf ([int]$LatestVersion.split('.')[2] -gt [int]$CurrentVersion.split('.')[2]) { # Case where Minor version isn't higher; check Patch/Upgrade fields
+    ElseIf (($LatestVersion -ne $null) -AND ([int]$LatestVersion.split('.')[2] -gt [int]$CurrentVersion.split('.')[2])) { # Case where Minor version isn't higher; check Patch/Upgrade fields
         Write-Verbose "Outdated version detected - currently $CurrentVersion; downloading $LatestVersion"
         Try {
             Invoke-WebRequest $AWSCLI64bitDownload -OutFile $DownloadLocation\AWSCLI64PY3.msi

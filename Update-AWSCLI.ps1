@@ -1,6 +1,25 @@
-#Example version number - 1.17.8 and 1.16.291
-#<Major>.<Minor>.<Patch/Upgrade>
-#Compare Minor fields (ex. 17 to 16), if same, compare Patch/Upgrade fields
+<#
+.SYNOPSIS
+Keep AWS CLI up to date
+Written by Tyler Applebaum
+Version 0.1
+
+.LINK
+https://github.com/tylerapplebaum/windows-aws-cli-utilities
+
+.DESCRIPTION
+Keeps AWS CLI up to date. Can install AWS CLI for the first time as well.
+Example version number - 1.17.8 and 1.16.291
+<Major>.<Minor>.<Patch/Upgrade>
+Compare Minor fields (ex. 17 to 16), if same, compare Patch/Upgrade fields
+
+.PARAMETER NewInstallErrorAction
+Specify a PowerShell ErrorAction value.
+
+.EXAMPLE
+PS C:\> .\Update-AWSCLI.ps1 -Verbose
+
+#>
 
 [CmdletBinding()]
 Param(

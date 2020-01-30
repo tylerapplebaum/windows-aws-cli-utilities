@@ -79,7 +79,7 @@ Param(
         }
     }
 
-    If (($LatestVersion -ne $null) -AND ([int]$LatestVersion.split('.')[1] -gt [int]$CurrentVersion.split('.')[1])) { # Case where Minor version is higher
+    If (($null -ne $LatestVersion) -AND ([int]$LatestVersion.split('.')[1] -gt [int]$CurrentVersion.split('.')[1])) { # Case where Minor version is higher
         Write-Verbose "Outdated version detected - currently $CurrentVersion; downloading $LatestVersion"
         Try {
             Invoke-WebRequest $AWSCLI64bitDownload -OutFile $DownloadLocation\AWSCLI64PY3.msi
@@ -89,7 +89,7 @@ Param(
         }
     }
 
-    ElseIf (($LatestVersion -ne $null) -AND ([int]$LatestVersion.split('.')[2] -gt [int]$CurrentVersion.split('.')[2])) { # Case where Minor version isn't higher; check Patch/Upgrade fields
+    ElseIf (($null -ne $LatestVersion) -AND ([int]$LatestVersion.split('.')[2] -gt [int]$CurrentVersion.split('.')[2])) { # Case where Minor version isn't higher; check Patch/Upgrade fields
         Write-Verbose "Outdated version detected - currently $CurrentVersion; downloading $LatestVersion"
         Try {
             Invoke-WebRequest $AWSCLI64bitDownload -OutFile $DownloadLocation\AWSCLI64PY3.msi

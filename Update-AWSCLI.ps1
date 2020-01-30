@@ -49,7 +49,7 @@ Param(
         Write-Verbose "Latest version $LatestVersion"
     }
     Catch {
-
+        Break
     }
 
 } #End Get-LatestAWSCLIVersion
@@ -85,7 +85,7 @@ Param(
             Invoke-WebRequest $AWSCLI64bitDownload -OutFile $DownloadLocation\AWSCLI64PY3.msi
         }
         Catch {
-        
+            Break
         }
     }
 
@@ -95,7 +95,7 @@ Param(
             Invoke-WebRequest $AWSCLI64bitDownload -OutFile $DownloadLocation\AWSCLI64PY3.msi
         }
         Catch {
-        
+            Break
         }
     }
 

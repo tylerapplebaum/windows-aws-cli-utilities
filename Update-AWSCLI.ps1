@@ -4,7 +4,7 @@
 
 [CmdletBinding()]
 Param(
-    [Parameter(HelpMessage="Force download and install even if AWS CLI not installed")]
+    [Parameter(HelpMessage="If set to 'Continue' - force download and install even if AWS CLI not installed")]
     [ValidateSet('Continue','Ignore','Inquire','SilentlyContinue','Stop','Suspend')]$NewInstallErrorAction = "Continue"
 )
 

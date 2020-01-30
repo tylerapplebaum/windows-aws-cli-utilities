@@ -95,5 +95,5 @@ Function Install-LatestAWSCLI {
 
 Get-RunAsAdminStatus
 Get-LatestAWSCLIVersion -Verbose
-Compare-AWSCLIVersions -Verbose -ErrorAction Continue
+Compare-AWSCLIVersions -Verbose -ErrorAction $DownloadErrorAction
 Install-LatestAWSCLI

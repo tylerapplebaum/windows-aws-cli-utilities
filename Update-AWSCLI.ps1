@@ -5,7 +5,7 @@
 [CmdletBinding()]
 Param(
     [Parameter(HelpMessage="Force download and install even if AWS CLI not installed")]
-    $DownloadErrorAction = "Continue"
+    $NewInstallErrorAction = "Continue"
 )
 
 Function Get-RunAsAdminStatus {
@@ -95,5 +95,5 @@ Function Install-LatestAWSCLI {
 
 Get-RunAsAdminStatus
 Get-LatestAWSCLIVersion -Verbose
-Compare-AWSCLIVersions -Verbose -ErrorAction $DownloadErrorAction
+Compare-AWSCLIVersions -Verbose -ErrorAction $NewInstallErrorAction
 Install-LatestAWSCLI

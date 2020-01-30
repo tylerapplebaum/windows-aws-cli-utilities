@@ -18,7 +18,6 @@ Specify a PowerShell ErrorAction value.
 
 .EXAMPLE
 PS C:\> .\Update-AWSCLI.ps1 -Verbose
-
 #>
 
 [CmdletBinding()]

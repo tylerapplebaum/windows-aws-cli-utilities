@@ -19,22 +19,13 @@ Specify a PowerShell ErrorAction value.
 .EXAMPLE
 PS C:\> .\Update-AWSCLI.ps1 -Verbose
 #>
+#Requires -RunAsAdministrator
 
 [CmdletBinding()]
 Param(
     [Parameter(HelpMessage="If set to 'Continue' - force download and install even if AWS CLI not installed")]
     [ValidateSet('Continue','Ignore','Inquire','SilentlyContinue','Stop','Suspend')]$NewInstallErrorAction = "Continue"
 )
-
-Function Get-RunAsAdminStatus {
-$AdminStatus = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-    If ( -NOT ($AdminStatus)) {
-        Write-Error "Please relaunch PowerShell as administrator" -ErrorAction Stop
-    }
-    Else {
-    
-    }
-} #End Get-RunAsAdminStatus
 
 Function Get-LatestAWSCLIVersion {
 [CmdletBinding()]
@@ -114,7 +105,6 @@ Function Install-LatestAWSCLI {
     }
 } #End Install-LatestAWSCLI
 
-Get-RunAsAdminStatus
 Get-LatestAWSCLIVersion -Verbose
 Compare-AWSCLIVersions -Verbose -ErrorAction $NewInstallErrorAction
 Install-LatestAWSCLI

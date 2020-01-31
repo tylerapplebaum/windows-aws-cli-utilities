@@ -47,3 +47,6 @@ PS C:\>
 #### Q & A
 - Q: Why not just use pip or chocolatey?
 - A: Those are both great package managers. I was looking for something lightweight, with no additional dependencies.
+
+- Q: Why does your code suck?
+- A: This is what happens when a network engineer attempts development. :grimacing:

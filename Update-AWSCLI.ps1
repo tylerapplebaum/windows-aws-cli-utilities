@@ -2,7 +2,7 @@
 .SYNOPSIS
 Keep AWS CLI up to date
 Written by Tyler Applebaum
-Version 0.1
+Version 0.2
 
 .LINK
 https://github.com/tylerapplebaum/windows-aws-cli-utilities
@@ -59,8 +59,7 @@ Param(
         Write-Verbose "Current version $CurrentVersion"
     }
 
-    Catch [System.Management.Automation.CommandNotFoundException]
-    {
+    Catch [System.Management.Automation.CommandNotFoundException] {
         Write-Error "AWS CLI not found"
         If ($NewInstallErrorAction = "Continue") {
             $CurrentVersion = "0.0.0"
@@ -69,31 +68,43 @@ Param(
             Break
         }
     }
-
-    If (($null -ne $LatestVersion) -AND ([int]$LatestVersion.split('.')[1] -gt [int]$CurrentVersion.split('.')[1])) { # Case where Minor version is higher
-        Write-Verbose "Outdated version detected - currently $CurrentVersion; downloading $LatestVersion"
-        Try {
-            Invoke-WebRequest $AWSCLI64bitDownload -OutFile $DownloadLocation\AWSCLI64PY3.msi
-        }
-        Catch {
-            Break
-        }
+    Try {
+        $VersionArr = @(($LatestVersion.Split('.')),($CurrentVersion.Split('.')))
     }
-
-    ElseIf (($null -ne $LatestVersion) -AND ([int]$LatestVersion.split('.')[2] -gt [int]$CurrentVersion.split('.')[2])) { # Case where Minor version isn't higher; check Patch/Upgrade fields
-        Write-Verbose "Outdated version detected - currently $CurrentVersion; downloading $LatestVersion"
-        Try {
-            Invoke-WebRequest $AWSCLI64bitDownload -OutFile $DownloadLocation\AWSCLI64PY3.msi
+    
+    Catch [System.Management.Automation.RuntimeException] {
+        If ($null -eq $LatestVersion) {
+            Write-Error "Could not detect latest version"
         }
-        Catch {
+        Break
+    }
+    
+    Catch {
+        Write-Error "Omar comin'"
+        Break
+    }
+    
+    $i = 1 #We can skip evaluating the first number due to AWS CLI versioning scheme
+    Do {
+        If ([int]$VersionArr[0][$i] -gt [int]$VersionArr[1][$i]) {
+            $ShouldDownload = $True
+            Write-Verbose "Outdated version detected - currently $CurrentVersion; $LatestVersion is newer"
             Break
         }
+
+    $i++ #Increment after $i is evaluated
+    }
+    Until ($i -eq $VersionArr[0].Length)
+
+    If ($ShouldDownload) {
+        Invoke-WebRequest $AWSCLI64bitDownload -OutFile $DownloadLocation\AWSCLI64PY3.msi
     }
 
     Else {
         Write-Verbose "Could not detect difference in versions; no action"
         Break
     }
+
 } #End Compare-AWSCLIVersions
 
 Function Install-LatestAWSCLI {

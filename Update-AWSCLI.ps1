@@ -40,6 +40,7 @@ Param(
         Write-Verbose "Latest version $LatestVersion"
     }
     Catch {
+        Write-Error "Could not parse version number from GitHub - check reachability"
         Break
     }
 

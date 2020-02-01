@@ -62,7 +62,7 @@ Param(
 
     Catch [System.Management.Automation.CommandNotFoundException] {
         Write-Error "AWS CLI not found"
-        If ($NewInstallErrorAction = "Continue") {
+        If ($NewInstallErrorAction -eq "Continue") {
             $CurrentVersion = "0.0.0"
         }
         Else {
@@ -72,19 +72,19 @@ Param(
     Try {
         $VersionArr = @(($LatestVersion.Split('.')),($CurrentVersion.Split('.')))
     }
-    
+
     Catch [System.Management.Automation.RuntimeException] {
         If ($null -eq $LatestVersion) {
             Write-Error "Could not detect latest version"
         }
         Break
     }
-    
+
     Catch {
         Write-Error "Omar comin'"
         Break
     }
-    
+
     $i = 1 #We can skip evaluating the first number due to AWS CLI versioning scheme
     Do {
         If ([int]$VersionArr[0][$i] -gt [int]$VersionArr[1][$i]) {
@@ -110,7 +110,7 @@ Param(
 
 Function Install-LatestAWSCLI {
     If (Test-Path $DownloadLocation\AWSCLI64PY3.msi) {
-        Start-Process -FilePath "msiexec.exe" -ArgumentList "/qn /i $DownloadLocation\AWSCLI64PY3.msi /L*V $DownloadLocation\AWSCLI64PY3_$LatestVersion.log" -Wait -Passthru 
+        Start-Process -FilePath "msiexec.exe" -ArgumentList "/qn /i $DownloadLocation\AWSCLI64PY3.msi /L*V $DownloadLocation\AWSCLI64PY3_$LatestVersion.log" -Wait -Passthru
     }
     Else {
         Write-Error "$DownloadLocation\AWSCLI64PY3.msi not found"

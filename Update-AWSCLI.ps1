@@ -55,6 +55,8 @@ Param(
     [Parameter(HelpMessage="Specify the local path to save the AWS CLI download")]
     [ValidateScript({Test-Path $_ -PathType Container})]$script:DownloadLocation = [Environment]::GetFolderPath("UserProfile") + "\Downloads"
 )
+
+$ProgressPreference = 'Continue' #Improve Invoke-WebRequest download speed
     Try {
         $CurrentVersion = $(aws --version).Split(' ')[0].Split('/')[1]
         Write-Verbose "Current version $CurrentVersion"
